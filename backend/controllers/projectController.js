@@ -55,7 +55,7 @@ exports.getProjectById = async (req, res) => {
       return res.status(404).json({ message: 'Project not found' });
     }
 
-    // Get project tasks
+    
     const tasks = await Task.find({ project: req.params.id })
       .populate('assignedTo', 'name email')
       .populate('createdBy', 'name email');
@@ -102,8 +102,7 @@ exports.deleteProject = async (req, res) => {
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
-
-    // Optionally, delete tasks associated with the project
+    //delete tasks associated with the project
     await Task.deleteMany({ project: req.params.id });
 
     res.json({ message: 'Project deleted successfully' });

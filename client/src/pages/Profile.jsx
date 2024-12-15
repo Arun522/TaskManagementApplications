@@ -3,28 +3,28 @@ import axios from 'axios';
 import Layout from '../components/Layout';
 
 function Profile() {
-  const [user, setUser] = useState(null); // Initially null to show loading state
+  const [user, setUser] = useState(null); 
   const [newPassword, setNewPassword] = useState({
     current: '',
     new: '',
     confirm: '',
   });
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true); 
 
   // Fetch user profile on component load
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+        const token = localStorage.getItem('token'); 
         const response = await axios.get('http://localhost:5001/api/users/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setUser(response.data); // Set user data from response
+        setUser(response.data); 
       } catch (error) {
         console.error('Error fetching user profile:', error);
         alert('Failed to fetch user profile. Please try again.');
       } finally {
-        setLoading(false); // End loading state
+        setLoading(false);
       }
     };
 
@@ -51,7 +51,7 @@ function Profile() {
         }
       );
       alert('Password updated successfully!');
-      setNewPassword({ current: '', new: '', confirm: '' }); // Clear fields
+      setNewPassword({ current: '', new: '', confirm: '' });
     } catch (error) {
       console.error('Error changing password:', error);
       alert(

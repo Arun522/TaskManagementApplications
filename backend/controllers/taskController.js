@@ -8,7 +8,7 @@ exports.createTask = async (req, res) => {
   try {
     const { title, description, status, project, assignedTo, deadline } = req.body;
 
-    // Verify project exists and user is a member
+    
     const projectExists = await Project.findOne({ 
       _id: project, 
       $or: [
@@ -21,7 +21,7 @@ exports.createTask = async (req, res) => {
       return res.status(403).json({ message: 'Project not found or access denied' });
     }
 
-    // Verify if the user exists by email (assignedTo)
+    // Verify if the user exists by email
     const assignedUser = await User.findOne({ email: assignedTo });
     if (!assignedUser) {
       return res.status(400).json({ message: 'User with this email does not exist' });

@@ -4,7 +4,7 @@ import axios from 'axios';
 import Layout from '../components/Layout';
 
 function AddTask() {
-  const { id } = useParams(); // Get project ID from the URL
+  const { id } = useParams(); // Get project ID from the url
   const navigate = useNavigate();
   
   const [newTask, setNewTask] = useState({
@@ -25,7 +25,7 @@ function AddTask() {
         { 
           ...newTask, 
           project: id, 
-          assignedTo: newTask.assignedTo, // Here, assignedTo should be an email
+          assignedTo: newTask.assignedTo, 
         },
         {
           headers: { Authorization: `Bearer ${token}` }

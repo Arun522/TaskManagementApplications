@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 
 function ProjectDetails() {
   const { id } = useParams();
-  const navigate = useNavigate(); // To handle redirection after delete
+  const navigate = useNavigate(); 
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -78,7 +78,7 @@ function ProjectDetails() {
             <h3 className="font-semibold">{task.title}</h3>
             <p className="text-sm text-gray-600">Description: {task.description}</p>
             <p className="text-sm text-gray-600">Status: {task.status}</p>
-            <p className="text-sm text-gray-600">Assigned To: {task.assignedTo || 'Unassigned'}</p> {/* Display name or 'Unassigned' */}
+            <p className="text-sm text-gray-600">Assigned To: {task.assignedTo || 'Unassigned'}</p> 
             <p className="text-sm text-gray-600">Deadline: {task.deadline ? new Date(task.deadline).toLocaleDateString() : 'Not Set'}</p>
           </div>
         ))}

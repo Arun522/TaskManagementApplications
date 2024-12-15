@@ -9,13 +9,13 @@ function Dashboard() {
     inProgress: 0,
     completed: 0,
   });
-  const [userName, setUserName] = useState(''); // State to store the user's name
+  const [userName, setUserName] = useState(''); 
 
   const getUserEmail = () => {
-    return localStorage.getItem('userEmail') || 'user@example.com'; // Example email for testing
+    return localStorage.getItem('userEmail') || 'user@example.com'; 
   };
 
-  // Fetch tasks assigned to the logged-in user
+
   useEffect(() => {
     const userEmail = getUserEmail();
 
@@ -23,11 +23,11 @@ function Dashboard() {
     axios.get('http://localhost:5001/api/users/me', {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`, // Assuming JWT token is in localStorage
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     })
       .then((response) => {
-        setUserName(response.data.name); // Set the user's name
+        setUserName(response.data.name); 
       })
       .catch((error) => {
         console.error('Error fetching user details:', error);
@@ -55,12 +55,12 @@ function Dashboard() {
           { todo: 0, inProgress: 0, completed: 0 }
         );
 
-        setStatusCounts(counts); // Update status counts state
+        setStatusCounts(counts); 
       })
       .catch((error) => {
         console.error('Error fetching tasks:', error);
       });
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, []); 
 
   return (
     <Layout>

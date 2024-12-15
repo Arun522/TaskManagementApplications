@@ -14,11 +14,11 @@ function Projects() {
     const fetchProjects = async () => {
       try {
         setLoading(true);
-        const token = localStorage.getItem('token'); // Get token from localStorage
+        const token = localStorage.getItem('token'); 
         const response = await axios.get('http://localhost:5001/api/projects', {
-          headers: { Authorization: `Bearer ${token}` }, // Send token in headers
+          headers: { Authorization: `Bearer ${token}` }, 
         });
-        setProjects(response.data); // Update state with fetched projects
+        setProjects(response.data); 
         setLoading(false);
       } catch (error) {
         console.error('Error fetching projects:', error);
@@ -41,8 +41,8 @@ function Projects() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setProjects([...projects, response.data]); // Add new project to the list
-      setNewProject({ title: '', description: '' }); // Reset form
+      setProjects([...projects, response.data]); 
+      setNewProject({ title: '', description: '' });
     } catch (error) {
       console.error('Error creating project:', error);
     }

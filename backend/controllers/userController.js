@@ -67,7 +67,6 @@ exports.loginUser = async (req, res) => {
 // @route   GET /api/users/me
 exports.getUserProfile = async (req, res) => {
   try {
-    // req.user is set by authMiddleware
     res.json(req.user);
   } catch (error) {
     res.status(500).json({ 

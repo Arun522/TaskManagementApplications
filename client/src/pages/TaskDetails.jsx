@@ -8,24 +8,24 @@ function TaskDetails() {
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [status, setStatus] = useState(''); // For storing the updated status
+  const [status, setStatus] = useState(''); 
 
   useEffect(() => {
     const fetchTask = async () => {
       try {
-        const token = localStorage.getItem('token');  // Get token from localStorage
+        const token = localStorage.getItem('token'); 
         if (!token) {
           throw new Error('No token found');
         }
 
         const response = await axios.get(`http://localhost:5001/api/tasks/${id}`, {
           headers: {
-            'Authorization': `Bearer ${token}`,  // Pass the token to the backend
+            'Authorization': `Bearer ${token}`, 
           },
         });
         console.log("taskDetails:", response.data )
         setTask(response.data);
-        setStatus(response.data.status);  // Set the status from the task data
+        setStatus(response.data.status); 
       } catch (err) {
         setError(err.response?.data?.message || 'Error fetching task details');
       } finally {
@@ -54,7 +54,7 @@ function TaskDetails() {
         }
       );
       console.log("Task status changed", response.data);
-      setTask(response.data);  // Update the task state with the new status
+      setTask(response.data);  
     } catch (err) {
       setError(err.response?.data?.message || 'Error updating task status');
     }
@@ -77,7 +77,7 @@ function TaskDetails() {
           <select
             className="ml-2 p-1 border rounded"
             value={status}
-            onChange={(e) => setStatus(e.target.value)} // Update status when changed
+            onChange={(e) => setStatus(e.target.value)} 
           >
             <option value="To-Do">To-Do</option>
             <option value="In Progress">In Progress</option>
@@ -85,13 +85,13 @@ function TaskDetails() {
           </select>
         </p>
         <p className="text-sm text-gray-600">
-          Project: Project Name
+          Project: {task.project.title}
           {/*<Link to={`/projects/${task.project._id}`} className="text-blue-600 hover:underline">
             {task.project.title}
           </Link>
           */}
         </p>
-        <p className="text-sm text-gray-600">Assigned To: {task.assignedTo?.name || 'No assigned user'}</p>
+        <p className="text-sm text-gray-600">Assigned To: {task.assignedTo || 'No assigned user'}</p>
         <p className="text-sm text-gray-600">Created By: {task.createdBy?.name || 'No creator'}</p>
         <p className="text-sm text-gray-600">
           Deadline: {new Date(task.deadline).toLocaleDateString()}
