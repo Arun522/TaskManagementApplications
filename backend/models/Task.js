@@ -23,8 +23,8 @@ const TaskSchema = new mongoose.Schema({
     required: true
   },
   assignedTo: {
-    type: String,  // Store email of the user here
-    required: false // Optional, can be changed based on your requirements
+    type: String,  
+    required: false 
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,

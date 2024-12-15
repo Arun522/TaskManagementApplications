@@ -77,7 +77,7 @@ exports.editProject = async (req, res) => {
     const updatedProject = await Project.findByIdAndUpdate(
       req.params.id,
       { title, description, members },
-      { new: true } // This returns the updated project
+      { new: true } 
     );
 
     if (!updatedProject) {

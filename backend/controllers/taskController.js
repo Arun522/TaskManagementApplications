@@ -33,7 +33,7 @@ exports.createTask = async (req, res) => {
       description,
       status,
       project,
-      assignedTo,  // Store email of the user here
+      assignedTo,  
       createdBy: req.user._id,
       deadline
     });
@@ -54,11 +54,38 @@ exports.createTask = async (req, res) => {
 exports.getProjectTasks = async (req, res) => {
   try {
     const tasks = await Task.find({ project: req.params.projectId })
-      .populate('assignedTo', 'name email')  // If assignedTo is an ObjectId and you're populating it
+      .populate('assignedTo', 'name email')  
       .populate('createdBy', 'name email');
 
     res.json(tasks);
   } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      error: error.message
+    });
+  }
+};
+
+
+// @desc    Get task by task ID
+// @route   GET /api/tasks/:id
+exports.getTaskById = async (req, res) => {
+  try {
+    // Find the task by its ID and populate the necessary fields
+    const task = await Task.findById(req.params.id)
+      .populate('assignedTo', 'name email')  // Populate assigned user (name, email)
+      .populate('createdBy', 'name email')  // Populate creator (name, email)
+      .populate('project', 'title');        // Populate project (title)
+
+    // If task is not found, return a 404 error
+    if (!task) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    // Return the task details
+    res.json(task);
+  } catch (error) {
+    // Return an error response in case of failure
     res.status(500).json({
       message: 'Server error',
       error: error.message
@@ -71,7 +98,7 @@ exports.getProjectTasks = async (req, res) => {
 exports.updateTask = async (req, res) => {
   try {
     const { title, description, status, assignedTo, deadline } = req.body;
-
+    console.log("params ID",req.params.id)
     const task = await Task.findByIdAndUpdate(
       req.params.id, 
       { title, description, status, assignedTo, deadline },
@@ -95,10 +122,20 @@ exports.updateTask = async (req, res) => {
 // @route   GET /api/tasks/assigned
 exports.getAssignedTasks = async (req, res) => {
   try {
-    const userEmail = req.user.email;  
-    console.log('User Email from getAssignedTasks:', req.user.email);  
+    const userEmail = req.userEmail;  
+    console.log('User Email from getAssignedTasks:', req.userEmail);  
     
-    const tasks = await Task.find({ assignedTo: req.user.email });
+    //const tasks = await Task.find({ assignedTo: userEmail });
+    //const tasks = await Task.find({ project: mongoose.Types.ObjectId(projectId) });
+
+    const tasks = await Task.find({ assignedTo: userEmail })
+                            .populate('project')  // Populate the project details
+                            .populate('assignedTo')  // Populate assigned user details
+                            .populate('createdBy');  // Populate creator details
+
+    if (tasks.length === 0) {
+      return res.status(404).json({ message: 'No tasks assigned to this user.' });
+    }
 
     res.json(tasks);
   } catch (error) {
@@ -114,13 +151,13 @@ exports.getAssignedTasks = async (req, res) => {
 // @route   PUT /api/tasks/:id
 exports.updateTaskStatus = async (req, res) => {
   try {
-    const { status } = req.body;  // Expect the status in the request body
+    const { status } = req.body;  
 
     // Find the task and update its status
     const task = await Task.findByIdAndUpdate(
       req.params.id, 
       { status },
-      { new: true, runValidators: true }  // Ensures the task is updated and validated
+      { new: true, runValidators: true }  
     );
 
     if (!task) {

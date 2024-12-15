@@ -11,15 +11,16 @@ const authMiddleware = async (req, res, next) => {
     }
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    //req.userEmail = decoded.email;
     //console.log('Decoded Token:', decoded);
     //console.log('Decoded userId:', decoded.userId, 'Type:', typeof decoded.userId);
 
-    const userId1 = new mongoose.Types.ObjectId(decoded.userId);
+    //const userId1 = new mongoose.Types.ObjectId(decoded.userId);
     //console.log('Converted userId:', userId1);
        // console.log('User1:', decoded.userId);
     //console.log(await UserModel.findById(userId1))
     // Find user
-    const user = await UserModel.findById(userId1).select('-password');
+    const user = await UserModel.findById(decoded.userId).select('-password');
     //console.log('User:', user);
     if (!user) {
       return res.status(401).json({ message: 'User not found' });
