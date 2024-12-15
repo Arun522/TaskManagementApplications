@@ -1,5 +1,7 @@
 # Task Management Application
 
+## Live Link -> https://application-task-management.netlify.app/
+
 ## Overview
 
 The Task Management Application is a full-stack project designed for efficient project and task management. It enables users to create projects, assign tasks, and collaborate with team members while maintaining a responsive and secure platform.
