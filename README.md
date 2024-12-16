@@ -1,6 +1,5 @@
 # Task Management Application
 
-## Live Link -> https://application-task-management.netlify.app/
 
 ## Overview
 
