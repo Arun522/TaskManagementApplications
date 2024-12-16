@@ -44,42 +44,42 @@ function Layout({ children }) {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-10 bg-white shadow-md w-64 transform ${
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 ease-in-out md:relative md:translate-x-0 flex flex-col`}
-      >
-        <div className="p-4">
-          {loading ? (
-            <p>Loading...</p>
-          ) : user ? (
-            <>
-              <h2 className="text-xl font-semibold">{user.name}</h2>
-              <p className="text-gray-600">{user.email}</p>
-            </>
-          ) : (
-            <p>User not found</p>
-          )}
-        </div>
-        <nav className="flex-1 mt-4">
-          <Link to="/dashboard" className="block py-2 px-4 text-gray-700 hover:bg-gray-200">
-            Dashboard
-          </Link>
-          <Link to="/projects" className="block py-2 px-4 text-gray-700 hover:bg-gray-200">
-            Projects
-          </Link>
-          <Link to="/tasks" className="block py-2 px-4 text-gray-700 hover:bg-gray-200">
-            Tasks
-          </Link>
-          <Link to="/profile" className="block py-2 px-4 text-gray-700 hover:bg-gray-200">
-            Profile
-          </Link>
-        </nav>
-        <div className="p-4 bg-slate-500">
-          <button className="w-full text-white py-2 rounded hover:bg-slate-600" onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
-      </aside>
+  className={`fixed inset-y-0 left-0 z-20 bg-white shadow-md w-64 transform ${
+    isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+  } transition-transform duration-300 ease-in-out md:relative md:translate-x-0 flex flex-col`}
+>
+  <div className="p-4">
+    {loading ? (
+      <p>Loading...</p>
+    ) : user ? (
+      <>
+        <h2 className="text-xl font-semibold">{user.name}</h2>
+        <p className="text-gray-600">{user.email}</p>
+      </>
+    ) : (
+      <p>User not found</p>
+    )}
+  </div>
+  <nav className="flex-1 mt-4">
+    <Link to="/dashboard" className="block py-2 px-4 text-gray-700 hover:bg-gray-200">
+      Dashboard
+    </Link>
+    <Link to="/projects" className="block py-2 px-4 text-gray-700 hover:bg-gray-200">
+      Projects
+    </Link>
+    <Link to="/tasks" className="block py-2 px-4 text-gray-700 hover:bg-gray-200">
+      Tasks
+    </Link>
+    <Link to="/profile" className="block py-2 px-4 text-gray-700 hover:bg-gray-200">
+      Profile
+    </Link>
+  </nav>
+  <div className="p-4 bg-slate-500">
+    <button className="w-full text-white py-2 rounded hover:bg-slate-600" onClick={handleLogout}>
+      Logout
+    </button>
+  </div>
+</aside>
 
       {/* Main Content */}
       <main className="flex-1 p-8 overflow-y-auto md:ml-30">
